@@ -3,7 +3,8 @@ import { useState } from "react";
 import "./App.css";
 
 //COMPONENTS
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
+import { Header } from "./components/Headers.jsx";
 import { Products } from "./components/Products.jsx";
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
 
   return (
     <Container component="div" maxWidth={false} sx={{ p: 2, backgroundColor: "aliceblue" }}>
-      <Typography sx={{ textAlign: "center", fontWeight: "bold" }} variant='h3' component="h1">Shopping Cart 🛒</Typography>
+      <Header />
       <Products products={filteredProducts} />
     </Container>
   )

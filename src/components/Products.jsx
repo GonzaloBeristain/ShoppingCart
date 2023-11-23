@@ -4,7 +4,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 export const Products = ({ products }) => {
     return (
         <Box>
-            <Grid container spacing={2} sx={{ pt: 3}}>
+            <Grid container spacing={2} sx={{ pt: 0}}>
             {products.map(product => 
                 <Grid item xs={12} sm={6} md={3} lg={3} xl={2}>
                     <Card key={product.id} sx={{ border: 2, borderRadius: "10px" }}>
