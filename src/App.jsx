@@ -30,7 +30,7 @@ function App() {
 
   return (
     <Container component="div" maxWidth={false} sx={{ p: 2, backgroundColor: "aliceblue" }}>
-      <Header />
+      <Header changeFilters={setFilters}/>
       <Products products={filteredProducts} />
     </Container>
   )
