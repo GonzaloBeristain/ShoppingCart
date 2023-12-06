@@ -1,7 +1,14 @@
+import { useCarrito } from "../context/CarritoContext";
 import { Typography, Grid, Card, CardMedia, CardContent, Box, Button } from "@mui/material";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export const Products = ({ products }) => {
+    const { dispatch } = useCarrito();
+
+    const handleClickProduct = (product) => {
+        dispatch({ type: 'ADD_TO_CART', payload: product });
+    }
+
     return (
         <Box>
             <Grid container spacing={2} sx={{ pt: 0}}>
@@ -19,7 +26,7 @@ export const Products = ({ products }) => {
                             <Typography variant='body2' sx={{padding: "10px 0px 0px 0px", height: 90}}>{product.description}</Typography>
                             <Typography variant='body1' sx={{fontWeight: "bold", pb: 2}}>Price: ${product.price}</Typography>
                             <Box sx={{textAlign: "center"}}>
-                                <Button variant="contained" size="small" startIcon={<AddShoppingCartIcon />}>ADD TO CART</Button>
+                                <Button onClick={() => handleClickProduct(product)} variant="contained" size="small" startIcon={<AddShoppingCartIcon />}>ADD TO CART</Button>
                             </Box>
                         </CardContent>
                     </Card>

@@ -7,6 +7,9 @@ import { Container } from "@mui/material";
 import { Header } from "./components/Headers.jsx";
 import { Products } from "./components/Products.jsx";
 
+//CONTEXT
+import { CarritoProvider } from "./context/CarritoContext.jsx";
+
 function App() {
   const [products] = useState(initialProducts);
   const [filters, setFilters] = useState({
@@ -29,10 +32,12 @@ function App() {
   const filteredProducts = filterProducts(products);
 
   return (
-    <Container component="div" maxWidth={false} sx={{ p: 2, backgroundColor: "aliceblue" }}>
-      <Header changeFilters={setFilters}/>
-      <Products products={filteredProducts} />
-    </Container>
+    <CarritoProvider>
+      <Container component="div" maxWidth={false} sx={{ p: 2, backgroundColor: "aliceblue" }}>
+        <Header changeFilters={setFilters}/>
+        <Products products={filteredProducts} />
+      </Container>
+    </CarritoProvider>
   )
 };
 
