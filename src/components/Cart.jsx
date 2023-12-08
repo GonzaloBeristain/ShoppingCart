@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useCarrito } from "../context/CarritoContext";
-import { Button, Box, Typography, Modal } from '@mui/material';
+import { Button, Box, Typography, Modal, List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export const Cart = () => {
@@ -40,21 +40,31 @@ export const Cart = () => {
                     p: 4,
                 }}
                 >
-                    <Typography>
-                        Productos
+                    <Typography sx={{fontSize: "24px", fontWeight: "bold", textAlign: "center"}}>
+                        Shopping Cart
                     </Typography>
-                    <ul>
+                    <Divider sx={{borderWidth: "1px", my: 2}} />
+                    <List>
                         {carrito.selectedProducts.map((product, index) => (
-                            <li key={index}>
-                                {product.title}{' '}
-                                <Button onClick={() => removeFromCart(product)}>Remove</Button>
-                            </li>
+                            <ListItem key={index}>
+                                <ListItemAvatar>
+                                    <Avatar alt={product.title} src={product.thumbnail}/>
+                                </ListItemAvatar>
+                                <ListItemText>
+                                    <Typography sx={{fontWeight: "bold", fontSize: "17px"}}>{product.title}</Typography>
+                                    <Typography sx={{fontSize: "15px", fontWeight: "500"}}>Price: ${product.price.toFixed(2)}</Typography>
+                                    <Typography sx={{fontSize: "14px", fontWeight: "300"}}>Qty: {product.quantity}</Typography> 
+                                </ListItemText>
+                                <Button color='error' onClick={() => removeFromCart(product)}>Remove</Button>
+                            </ListItem>
                         ))}
-                    </ul>
-                    <Button onClick={handleClose}>Close</Button>
+                    </List>
+                    <Divider sx={{borderWidth: "1px", my: 2}} />
+                    <Typography sx={{pb: 1, fontWeight: "bold", textAlign:"center", fontSize: "18px"}}>Subtotal: ${carrito.total.toFixed(2)}</Typography>
+                    <Divider sx={{borderWidth: "1px", my: 2}} />
+                    <Button size='large' color='error' variant="contained" onClick={handleClose}>Close</Button>
                 </Box>
             </Modal>
         </Box>
-        
     )
 };
