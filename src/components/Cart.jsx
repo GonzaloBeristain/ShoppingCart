@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCarrito } from "../context/CarritoContext";
 import { Button, Box, Typography, Modal, List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -6,6 +6,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 export const Cart = () => {
     const [openModal, setOpenModal] = useState(false);
     const { carrito, dispatch } = useCarrito();
+    const [totalItems, setTotalItems] = useState(0);
 
     const handleClick = () => {
         setOpenModal(true)
@@ -19,11 +20,32 @@ export const Cart = () => {
         dispatch({ type: 'REMOVE_FROM_CART', payload: product });
     };
 
+    useEffect(() => {
+        // Calcula la cantidad total de productos en el carrito
+        const total = carrito.selectedProducts.reduce((acc, product) => acc + product.quantity, 0);
+        setTotalItems(total);
+    }, [carrito.selectedProducts]);
+
     return (
         <Box sx={{display: "flex", justifyContent: "flex-end", pb: 1}}>
             <Button onClick={handleClick}>
                 <AddShoppingCartIcon fontSize='large'/>
                 <Typography>Cart</Typography>
+                {totalItems > 0 && (
+                    <Box
+                        sx={{
+                            backgroundColor: "red",
+                            borderRadius: "50%",
+                            color: "white",
+                            width: "20px",
+                            height: "20px",
+                            ml: 0.3
+                        }}
+                    >
+                        <Typography sx={{fontSize: "14px"}}>{totalItems}</Typography>
+                        
+                    </Box>
+                )}
             </Button>
 
             <Modal open={openModal} onClose={handleClose}>
